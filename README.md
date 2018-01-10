@@ -3,7 +3,7 @@
 This plugin connects MQTTRoute with the Mongodb to store received payload info into Mongodb for further analysis and decision making. 
 
 # MQTTRoute 
-MQTTRoute is a powerful and high performance MQTTBroker that enables communication between variaous MQTT Devices and MQTT Sensors. MQTTRoute has FREE and affordable premium versions. 
+MQTTRoute is a powerful and high performance MQTTBroker that enables communication between various MQTT Devices and MQTT Sensors. MQTTRoute has FREE and affordable premium versions. 
 
 # configure and setup mqttroute-mongodb-connector
 	1. open plugin.conf and configure the hostname and port no.
