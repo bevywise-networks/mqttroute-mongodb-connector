@@ -54,7 +54,7 @@ class Mongo(Config):
             self.log.err("Error in DB connection ")           
             self.log.err('{}:{}:{}'.format(exc_type, fname, exc_tb.tb_lineno))
         else:
-        	self.log.info("DB sucessfully connected... ")           
+            self.log.info("Sucessfully Connected To MongoDB at port - {0} ".format(self.custom_data['mongo_port']))    
             
     def data_consumer(self,data,result = ''):
         try:

@@ -1,5 +1,5 @@
 # mqttroute-mongodb-connector
-The plugin to integrate MQTTRoute with the MongoDB. Store the received IOT / MQTT events into the Mongodb
+The plugin to integrate MQTTRoute with the MongoDB. Store the received IOT / MQTT events into the Mongodb.
 
 # configure and setup mqttroute-mongodb-connector
 	1. open plugin.conf and configure the hostname and port no.
