@@ -39,13 +39,19 @@ class Mongo(Config):
                         'mongo_host' : self.get_value('MONGO','HOSTNAME'), 
                         'mongo_port' : int(self.get_value('MONGO','PORT')), 
                         'db_name' : self.get_value('MONGO','DB_NAME'),
-                        'collection' : self.get_value('MONGO','COLLECTION')
+                        'collection' : self.get_value('MONGO','COLLECTION'),
+                        'auth_enable' : self.get_value('AUTHENTICATION','AUTHENTICATION_ENABLED'),
+                        'username' : self.get_value('AUTHENTICATION','USERNAME'),
+                        'password' : self.get_value('AUTHENTICATION','PASSWORD')
                         }
         self.init_db()
 
     def init_db(self):
         try:
-            self.Mongo_instance = MongoClient(self.custom_data['mongo_host'],self.custom_data['mongo_port'])
+            if self.custom_data['auth_enable'] == 'TRUE':
+                self.Mongo_instance = MongoClient(host = self.custom_data['mongo_host'], port = self.custom_data['mongo_port'], username = self.custom_data['username'], password = self.custom_data['password'])    
+            else:
+                self.Mongo_instance = MongoClient(self.custom_data['mongo_host'], self.custom_data['mongo_port'])
             self.db = self.Mongo_instance[self.custom_data['db_name']]
             self.collection = self.db[self.custom_data['collection']]
         except Exception:
