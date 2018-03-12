@@ -49,7 +49,8 @@ class Mongo(Config):
     def init_db(self):
         try:
             if self.custom_data['auth_enable'] == 'TRUE':
-                self.Mongo_instance = MongoClient(host = self.custom_data['mongo_host'], port = self.custom_data['mongo_port'], username = self.custom_data['username'], password = self.custom_data['password'])    
+                self.Mongo_instance = MongoClient("mongodb://"+self.custom_data['username']+":"+self.custom_data['password']+"@"+self.custom_data['mongo_host']+":"+str(self.custom_data['mongo_port'])+"/"+self.custom_data['db_name'])
+                print "MongoDB connection created successfully"
             else:
                 self.Mongo_instance = MongoClient(self.custom_data['mongo_host'], self.custom_data['mongo_port'])
             self.db = self.Mongo_instance[self.custom_data['db_name']]
