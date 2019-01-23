@@ -1,9 +1,9 @@
 ## mqttroute-mongodb-connector
 
-This plugin connects MQTTRoute with the Mongodb to store received payload info into Mongodb for further analysis and decision making. 
+This plugin connects Bevywise MQTT Broker with the Mongodb to store received payload info into Mongodb for further analysis and decision making. 
 
-# MQTTRoute 
-MQTTRoute is a powerful and high performance MQTTBroker that enables communication between various MQTT Devices and MQTT Sensors. MQTTRoute has FREE and affordable premium versions. 
+# Bevywise MQTTRoute 
+Bevywise MQTT Broker is a powerful and high performance MQTTBroker that enables communication between various MQTT Devices and MQTT Sensors. Bevywise MQTT Broker has FREE and affordable premium versions. 
 
 # configure and setup mqttroute-mongodb-connector
 	1. Open plugin.conf and configure the 
