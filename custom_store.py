@@ -18,7 +18,7 @@ sys.path.append(os.getcwd()+'/lib')
 # replace the pymongo installed path with next line  
 sys.path.append('/usr/local/lib/python2.7/dist-packages')
 from mongo import Mongo
-confpath = "./extension/plugin.conf"
+confpath = "../extension/plugin.conf"
 Mon_inst = Mongo(confpath)
 
 def handle_Received_Payload(data):
