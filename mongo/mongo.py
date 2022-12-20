@@ -22,35 +22,35 @@
 
 from pymongo import MongoClient
 import logger, os, sys
-from config import Config
+import configparser
+configParser = configparser.RawConfigParser()   
 
-class Mongo(Config):
+class Mongo():
     # Initialiser Class
     def __init__(self, filepath):
-        super(Mongo, self).__init__(filepath)
-        
-        if self._open() == True:
-            self.log = logger.Logger(self.get_value('LOG','LOG_FILE_PATH'))
+        try:
+            configParser.read(filepath)
+            self.custom_data = {
+                            'mongo_host' : configParser.get('MONGO','HOSTNAME'), 
+                            'mongo_port' : int(configParser.get('MONGO','PORT')), 
+                            'db_name' : configParser.get('MONGO','DB_NAME'),
+                            'collection' : configParser.get('MONGO','COLLECTION'),
+                            'auth_enable' : configParser.get('AUTHENTICATION','AUTHENTICATION_ENABLED'),
+                            'username' : configParser.get('AUTHENTICATION','USERNAME'),
+                            'password' : configParser.get('AUTHENTICATION','PASSWORD')
+                            }
+            self.log = logger.Logger(configParser.get('LOG','LOG_FILE_PATH'))
             self.log.info("Config File Loaded Sucessfully.")
-        else:
-            self.log = logger.Logger()
-            self.log.err("Config file open error.")
-        self.custom_data = {
-                        'mongo_host' : self.get_value('MONGO','HOSTNAME'), 
-                        'mongo_port' : int(self.get_value('MONGO','PORT')), 
-                        'db_name' : self.get_value('MONGO','DB_NAME'),
-                        'collection' : self.get_value('MONGO','COLLECTION'),
-                        'auth_enable' : self.get_value('AUTHENTICATION','AUTHENTICATION_ENABLED'),
-                        'username' : self.get_value('AUTHENTICATION','USERNAME'),
-                        'password' : self.get_value('AUTHENTICATION','PASSWORD')
-                        }
+        except Exception as e:
+            print('Error:{} reading conf;{}'.format(e, filepath))
         self.init_db()
+
 
     def init_db(self):
         try:
             if self.custom_data['auth_enable'] == 'TRUE':
                 self.Mongo_instance = MongoClient("mongodb://"+self.custom_data['username']+":"+self.custom_data['password']+"@"+self.custom_data['mongo_host']+":"+str(self.custom_data['mongo_port'])+"/"+self.custom_data['db_name'])
-                print "MongoDB connection created successfully"
+                print("MongoDB connection created successfully")
             else:
                 self.Mongo_instance = MongoClient(self.custom_data['mongo_host'], self.custom_data['mongo_port'])
             self.db = self.Mongo_instance[self.custom_data['db_name']]
@@ -63,6 +63,7 @@ class Mongo(Config):
         else:
             self.log.info("Sucessfully Connected To MongoDB at port - {0} ".format(self.custom_data['mongo_port']))    
             
+
     def data_consumer(self,data,result = ''):
         try:
             result = self.collection.insert_one(data)
@@ -71,7 +72,8 @@ class Mongo(Config):
         finally:
             return result
         
+
 # Write code for testing. 
 if __name__ == '__main__':
-    Mongo(Config)    
+    pass   
 
