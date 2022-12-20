@@ -4,7 +4,7 @@
 #
 # custom_store.py
 #
-# The custom data store hook for the Big Data Storage. 
+# The custom data store hook for storing MQTT Payload in MongoDB. 
 # The Custom data hook can be enabled in the broker.conf 
 # inside conf/ folder.
 # 
@@ -13,13 +13,16 @@
 ################################################################
 
 import os, sys
-global Mon_inst
-sys.path.append(os.getcwd()+'../extensions')
-# replace the pymongo installed path with next line  
-sys.path.append('/usr/local/lib/python2.7/dist-packages')
+
+from pathlib import Path
+current_path = Path(os.getcwd())
+plugin_path = os.path.join(current_path.parent.absolute(),'extensions','mongo')
+sys.path.append(plugin_path)
+conf_path = os.path.join(plugin_path, './plugin.conf')
 from mongo import Mongo
-confpath = "../extensions/plugin.conf"
-Mon_inst = Mongo(confpath)
+
+global Mon_inst
+Mon_inst = Mongo(conf_path)
 
 def handle_Received_Payload(data):
 
@@ -30,7 +33,10 @@ def handle_Received_Payload(data):
 	# finish your code here.
 	#
 	# Send data to your data store
-	result = Mon_inst.data_consumer(data)
-	# if result is none then write failed
+	try:
+		result = Mon_inst.data_consumer(data)
+		# if result is none then write failed
+	except Exception as e:
+		print(e)
 	 
 	
