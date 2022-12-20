@@ -8,13 +8,12 @@ Bevywise MQTT Broker is a powerful and high performance MQTTBroker that enables 
 # configure and setup mqttroute-mongodb-connector
 	1. Open plugin.conf and configure the 
 		1. update hostname and port no of the MongoDB Server in MONGO section.
-		2. If AUTHENTICATION is enabled in MQTTRoute, then update the Mongodb credentials otherwise set AUTHENTICATION_ENABLED = FALSE  
+		2. If AUTHENTICATION is enabled in MongoDB, then update the Mongodb credentials otherwise set AUTHENTICATION_ENABLED = FALSE  
 		3. 2.update log file path to your own folder location. [default = Bevywise/MQTTRoute/extensions]
 	2. Copy the folder mongo and paste it in to Bevywise/MQTTRoute/extensions.
-	3. Copy the folder plugin.conf and paste it in to Bevywise/MQTTRoute/extensions.
-	4. Replace custom_store.py with Bevywise/MQTTRoute/extensions/custom_store.py.
-	5. Open Bevywise/MQTTRoute/conf/data_store.conf 
+	3. Replace custom_store.py with Bevywise/MQTTRoute/extensions/custom_store.py.
+	4. Open Bevywise/MQTTRoute/conf/data_store.conf 
 		1. Update CUSTOMSTORAGE = ENABLED
 		2. Update DATASTORE = CUSTOM 
-	6. Start the MQTTRoute and it will start storing all the payload into Mongo DB Server.
+	5. Start the MQTTRoute and it will start storing all the payload into Mongo DB Server.
 
